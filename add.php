@@ -1,29 +1,54 @@
 <?php
 
-// VIDEO 19 - BASIC FORM VALIDATION (PART 1)
+// VIDEO 20 - FILTERS & MORE VALIDATION
 
-// Check if the form has been submitted
 if (isset($_POST['submit'])) {
 
-    // Check email
+    // CHECK EMAIL
     if (empty($_POST['email'])) {
+
         echo 'An email is required <br />';
+
     } else {
-        echo htmlspecialchars($_POST['email']) . '<br />';
+
+        $email = $_POST['email'];
+
+        // Check whether the email is in a valid email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo 'Email must be a valid email address <br />';
+        }
     }
 
-    // Check title
+
+    // CHECK TITLE
     if (empty($_POST['title'])) {
+
         echo 'A title is required <br />';
+
     } else {
-        echo htmlspecialchars($_POST['title']) . '<br />';
+
+        $title = $_POST['title'];
+
+        // Only letters and spaces are allowed in the pizza title
+        if (!preg_match('/^[a-zA-Z\s]+$/', $title)) {
+            echo 'Title must be letters and spaces only <br />';
+        }
     }
 
-    // Check ingredients
+
+    // CHECK INGREDIENTS
     if (empty($_POST['ingredients'])) {
+
         echo 'At least one ingredient is required <br />';
+
     } else {
-        echo htmlspecialchars($_POST['ingredients']) . '<br />';
+
+        $ingredients = $_POST['ingredients'];
+
+        // Ingredients should contain letters, spaces and commas
+        if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)) {
+            echo 'Ingredients must be a comma separated list <br />';
+        }
     }
 }
 
