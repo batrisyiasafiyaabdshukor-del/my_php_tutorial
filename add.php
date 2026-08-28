@@ -1,25 +1,30 @@
 <?php
 
-// VIDEO 18 - XSS ATTACKS
+// VIDEO 19 - BASIC FORM VALIDATION (PART 1)
 
-// XSS = Cross-Site Scripting.
-// It can happen when user input is displayed as HTML without protection.
+// Check if the form has been submitted
+if (isset($_POST['submit'])) {
 
-// htmlspecialchars() converts special HTML characters into safe text.
-// Example:
-// <script> becomes harmless text instead of being treated as HTML.
+    // Check email
+    if (empty($_POST['email'])) {
+        echo 'An email is required <br />';
+    } else {
+        echo htmlspecialchars($_POST['email']) . '<br />';
+    }
 
-// We only display the submitted values if the form has been submitted.
+    // Check title
+    if (empty($_POST['title'])) {
+        echo 'A title is required <br />';
+    } else {
+        echo htmlspecialchars($_POST['title']) . '<br />';
+    }
 
-if (isset($_GET['submit'])) {
-
-    echo htmlspecialchars($_GET['email']);
-    echo '<br />';
-
-    echo htmlspecialchars($_GET['title']);
-    echo '<br />';
-
-    echo htmlspecialchars($_GET['ingredients']);
+    // Check ingredients
+    if (empty($_POST['ingredients'])) {
+        echo 'At least one ingredient is required <br />';
+    } else {
+        echo htmlspecialchars($_POST['ingredients']) . '<br />';
+    }
 }
 
 ?>
@@ -30,7 +35,7 @@ if (isset($_GET['submit'])) {
 
     <h4 class="center">Add a Pizza</h4>
 
-    <form class="white" action="add.php" method="GET">
+    <form class="white" action="add.php" method="POST">
 
         <label>Your Email:</label>
         <input type="text" name="email">
