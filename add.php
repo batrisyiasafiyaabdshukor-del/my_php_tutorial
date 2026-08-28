@@ -1,8 +1,9 @@
 <?php
 
-// VIDEO 21 - SHOWING ERRORS
+// VIDEO 22 - CHECKING FOR ERRORS & REDIRECTING
 
 $email = $title = $ingredients = '';
+
 $errors = array(
     'email' => '',
     'title' => '',
@@ -53,6 +54,21 @@ if (isset($_POST['submit'])) {
         if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)) {
             $errors['ingredients'] = 'Ingredients must be a comma separated list';
         }
+    }
+
+
+    // CHECK IF THERE ARE ANY ERRORS
+    if (array_filter($errors)) {
+
+        // If array_filter finds something inside the errors array,
+        // there is at least one validation error.
+        echo 'errors in form';
+
+    } else {
+
+        // If there are no errors, redirect the user
+        // back to the Ninja Pizza homepage.
+        header('Location: index.php');
     }
 }
 
