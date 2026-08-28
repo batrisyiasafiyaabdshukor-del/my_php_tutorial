@@ -1,12 +1,26 @@
 <?php
 
-// VIDEO 17 - FORMS IN PHP
+// VIDEO 18 - XSS ATTACKS
 
-// $_GET is a PHP superglobal.
-// It stores data that is sent through the URL using the GET method.
+// XSS = Cross-Site Scripting.
+// It can happen when user input is displayed as HTML without protection.
 
-// This lets us see the data submitted from the form.
-print_r($_GET);
+// htmlspecialchars() converts special HTML characters into safe text.
+// Example:
+// <script> becomes harmless text instead of being treated as HTML.
+
+// We only display the submitted values if the form has been submitted.
+
+if (isset($_GET['submit'])) {
+
+    echo htmlspecialchars($_GET['email']);
+    echo '<br />';
+
+    echo htmlspecialchars($_GET['title']);
+    echo '<br />';
+
+    echo htmlspecialchars($_GET['ingredients']);
+}
 
 ?>
 
@@ -15,11 +29,6 @@ print_r($_GET);
 <section class="container grey-text">
 
     <h4 class="center">Add a Pizza</h4>
-
-    <!--
-        The form sends the user's information to add.php.
-        method="GET" means the submitted values will appear in the URL.
-    -->
 
     <form class="white" action="add.php" method="GET">
 
